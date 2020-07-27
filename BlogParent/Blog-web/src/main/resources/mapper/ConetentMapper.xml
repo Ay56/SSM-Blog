@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lfy.blog.mapper.UserContentMapper">
+
+    <select id="selectAll" resultType="UserContent">
+        select * from user_content
+    </select>
+
+
+    <select id="selectAllById" resultType="UserContent">
+        SELECT * FROM user_content WHERE u_id=#{id}
+    </select>
+
+
+    <select id="selectCounts" resultType="int">
+        select count(*) from user_content WHERE u_id=#{id}
+    </select>
+
+
+    <select id="selectByIdCount" resultType="int">
+        SELECT SUM(`upvote`) FROM `user_content` WHERE u_id=#{id}
+    </select>
+
+    <select id="selectAllByIdcontent" resultType="UserContent">
+        SELECT * FROM user_content WHERE u_id=#{id}
+    </select>
+
+    <select id="selectBycatery" resultType="UserContent">
+        select distinct category from user_content
+    </select>
+
+
+    <insert id="inserts" parameterType="UserContent">
+        insert  into user_content(id,u_id,title,category,content,personal,rpt_time,img_url,nick_name,title_name,title_pic)
+        values (null,#{uId},#{title},#{category},#{content},#{personal},#{rptTime},#{imgUrl},#{nickName},#{titleName},#{titlePic})
+    </insert>
+
+
+    <select id="search"  resultType="UserContent">
+        select * from user_content where title like concat('%',#{keywords},'%')
+    </select>
+
+</mapper>
